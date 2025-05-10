@@ -1,77 +1,82 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
-import { schemas, SectionName } from "../../constants/formSchemas";
-import { formBlueprint } from "../../constants/formBlueprint";
-import ProgressBar from "../shared/ProgressBar";
-import DynamicFormSection from "./DynamicFormSection";
-import { formatFormDataForBackend } from "../../utils/formatFormDataForBackend";
+import { Progress } from "@/components/ui/progress";
+
+import { PersonalSection } from "@/features/personal";
+import { SummarySection } from "@/features/summary";
+import { EducationSection } from "@/features/education";
+import { ExperienceSection } from "@/features/experience";
+import { SkillsSection } from "@/features/skills";
+import { LanguagesSection } from "@/features/languages";
+import { CertificationsSection } from "@/features/certifications";
+
+import { generateResume } from "@/services/resumeService";
+import { formatFormDataForBackend } from "@/utils/formatFormDataForBackend";
+
+const formSections = [
+  { Component: PersonalSection, key: "personalData" },
+  { Component: SummarySection, key: "professionalSummary" },
+  { Component: EducationSection, key: "education" },
+  { Component: ExperienceSection, key: "experience" },
+  { Component: SkillsSection, key: "skills" },
+  { Component: LanguagesSection, key: "languages" },
+  { Component: CertificationsSection, key: "certifications" },
+];
 
 const ResumeFormFlow = () => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<Record<string, any>>({});
+  const navigate = useNavigate();
 
-  const currentSection = formBlueprint[step];
-  const sectionName = currentSection.section as SectionName;
-  const schema = schemas[sectionName];
+  const current = formSections[step];
+  const SectionComponent = current.Component;
 
+  const handleNext = (data: any) => {
+    const updated = { ...formData, [current.key]: data };
+    setFormData(updated);
+    console.log("✅ Respuestas acumuladas:", updated);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: formData[sectionName] ?? {},
-    mode: "onTouched",
-  });
-
-  const onSubmit = (data: any) => {
-    const updatedFormData = { ...formData, [sectionName]: data };
-    setFormData(updatedFormData);
-    console.log("✅ Respuestas hasta ahora:", updatedFormData);
-
-    if (step < formBlueprint.length - 1) {
+    if (step < formSections.length - 1) {
       setStep(step + 1);
     } else {
-      const finalData = formatFormDataForBackend(updatedFormData);
-      console.log("🎯 Enviando al backend:", finalData);
+      const finalData = formatFormDataForBackend(updated);
+      console.log('🎯 Datos formateados para backend', finalData);
+
+      generateResume(finalData)
+        .then((res) => {
+          localStorage.setItem("resumeResult", JSON.stringify(res));
+          navigate("/resumen");
+        })
+        .catch((err) => {
+          console.error("❌ Error al generar resumen:", err);
+        });
     }
   };
 
   const handleBack = () => {
-    if (step > 0) setStep((s) => s - 1);
+    if (step > 0) setStep(step - 1);
   };
 
+  const progressPercent = ((step + 1) / formSections.length) * 100;
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-3xl w-full mx-auto space-y-6"
-    >
-      <ProgressBar current={step + 1} total={formBlueprint.length} />
-      <DynamicFormSection
-        section={currentSection}
-        register={register}
-        errors={errors}
-      />
-      <div className="flex justify-between pt-4">
-        <button
-          type="button"
-          onClick={handleBack}
-          disabled={step === 0}
-          className="px-4 py-2 text-primary border border-primary rounded disabled:opacity-50"
-        >
-          Atrás
-        </button>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-primary text-white rounded hover:bg-secondary"
-        >
-          {step === formBlueprint.length - 1 ? "Generar CV" : "Siguiente"}
-        </button>
+    <div className="max-w-3xl w-full mx-auto space-y-6">
+      <div className="space-y-2">
+        <div className="text-sm text-muted-foreground">
+          Paso {step + 1} de {formSections.length}
+        </div>
+        <Progress value={progressPercent} />
       </div>
-    </form>
+
+      <SectionComponent
+        onNext={handleNext}
+        onBack={handleBack}
+        defaultValues={formData[current.key]}
+        isLast={step === formSections.length - 1}
+        isFirst={step === 0}
+      />
+    </div>
   );
 };
 

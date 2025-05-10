@@ -1,6 +1,6 @@
 import ResumeFormFlow from "../components/form/ResumeFormFlow";
 
-const FormularioScreen = () => {
+const FormScreen = () => {
   return (
     <div className="min-h-screen bg-background p-6">
       <ResumeFormFlow />
@@ -8,4 +8,4 @@ const FormularioScreen = () => {
   );
 };
 
-export default FormularioScreen;
+export default FormScreen;
