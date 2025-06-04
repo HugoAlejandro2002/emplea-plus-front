@@ -6,7 +6,7 @@ export const certificationsSchema = z.object({
             course: z.string().min(1, "El nombre del curso es obligatorio"),
             provider: z.string().min(1, "La institución es obligatoria"),
             year: z.string().min(4, "Debe indicar el año"),
-            certificate: z.string().optional(),
+            certificate: z.string().url("Debe ser un enlace válido").optional(),
         })
     ).min(1, "Agrega al menos una certificación"),
 });

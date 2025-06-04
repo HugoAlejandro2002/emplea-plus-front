@@ -97,7 +97,7 @@ const CertificationsSection = ({
                 </Button>
 
                 <div className="flex justify-between pt-4">
-                    <Button type="button" onClick={onBack} disabled={isFirst}>
+                    <Button type="button" onClick={onBack} variant="outline" disabled={isFirst}>
                         Atrás
                     </Button>
                     <Button type="submit">{isLast ? "Generar CV" : "Siguiente"}</Button>

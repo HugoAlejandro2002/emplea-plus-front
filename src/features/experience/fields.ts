@@ -7,7 +7,7 @@ export const experienceFieldMeta: {
 }[] = [
         {
             name: "projectName",
-            label: "Nombre del proyecto o actividad",
+            label: "Nombre del proyecto",
             placeholder: "Feria científica, voluntariado, hackathon, etc."
         },
         {

@@ -46,7 +46,7 @@ const ResumeFormFlow = () => {
       generateResume(finalData)
         .then((res) => {
           localStorage.setItem("resumeResult", JSON.stringify(res));
-          navigate("/resumen");
+          navigate("/summary");
         })
         .catch((err) => {
           console.error("❌ Error al generar resumen:", err);

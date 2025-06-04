@@ -59,12 +59,12 @@ const ExperienceSection = ({
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <h2 className="text-xl font-semibold">Experiencia en proyectos o actividades</h2>
+        <h2 className="text-xl font-semibold">Experiencia en proyectos</h2>
 
         {fields.map((field, index) => (
           <div key={field.id} className="p-4 border rounded-lg space-y-4 bg-muted/10">
             <div className="flex justify-between items-center">
-              <h3 className="font-medium">Actividad #{index + 1}</h3>
+              <h3 className="font-medium">Experiencia #{index + 1}</h3>
               {fields.length > 1 && (
                 <Button
                   type="button"
@@ -113,7 +113,7 @@ const ExperienceSection = ({
         </Button>
 
         <div className="flex justify-between pt-4">
-          <Button type="button" onClick={onBack} disabled={isFirst}>
+          <Button type="button" onClick={onBack} variant="outline" disabled={isFirst}>
             Atrás
           </Button>
           <Button type="submit">
