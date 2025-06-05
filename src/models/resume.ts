@@ -85,3 +85,8 @@ export interface ResumeResponse {
     }[];
 }
 
+export interface ResumeReference {
+  id: string;
+  filename: string;
+  created_at: string;
+}

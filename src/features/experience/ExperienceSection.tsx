@@ -59,12 +59,12 @@ const ExperienceSection = ({
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <h2 className="text-xl font-semibold">Experiencia en proyectos</h2>
+        <h2 className="text-xl font-semibold">Experiencia laboral y/o actividades de importancia</h2>
 
         {fields.map((field, index) => (
           <div key={field.id} className="p-4 border rounded-lg space-y-4 bg-muted/10">
             <div className="flex justify-between items-center">
-              <h3 className="font-medium">Experiencia #{index + 1}</h3>
+              <h3 className="font-medium">Experiencia y/o Actividad #{index + 1}</h3>
               {fields.length > 1 && (
                 <Button
                   type="button"

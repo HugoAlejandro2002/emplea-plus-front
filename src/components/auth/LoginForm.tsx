@@ -33,7 +33,7 @@ export default function LoginForm() {
   const onSubmit = async (values: LoginFormType) => {
     try {
       await login(values.email, values.password);
-      navigate("/menu");
+      navigate("/form");
     } catch {
       form.setError("email", { message: "Credenciales incorrectas" });
       form.setError("password", { message: " " });

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Loader } from "lucide-react";
 
 import { PersonalSection } from "@/features/personal";
 import { SummarySection } from "@/features/summary";
@@ -27,6 +29,7 @@ const formSections = [
 const ResumeFormFlow = () => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<Record<string, any>>({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const current = formSections[step];
@@ -35,13 +38,12 @@ const ResumeFormFlow = () => {
   const handleNext = (data: any) => {
     const updated = { ...formData, [current.key]: data };
     setFormData(updated);
-    console.log("✅ Respuestas acumuladas:", updated);
 
     if (step < formSections.length - 1) {
       setStep(step + 1);
     } else {
       const finalData = formatFormDataForBackend(updated);
-      console.log('🎯 Datos formateados para backend', finalData);
+      setLoading(true);
 
       generateResume(finalData)
         .then((res) => {
@@ -50,7 +52,8 @@ const ResumeFormFlow = () => {
         })
         .catch((err) => {
           console.error("❌ Error al generar resumen:", err);
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -61,7 +64,7 @@ const ResumeFormFlow = () => {
   const progressPercent = ((step + 1) / formSections.length) * 100;
 
   return (
-    <div className="max-w-3xl w-full mx-auto space-y-6">
+    <div className="max-w-3xl w-full mx-auto space-y-6 relative">
       <div className="space-y-2">
         <div className="text-sm text-muted-foreground">
           Paso {step + 1} de {formSections.length}
@@ -76,6 +79,16 @@ const ResumeFormFlow = () => {
         isLast={step === formSections.length - 1}
         isFirst={step === 0}
       />
+
+      <Dialog open={loading}>
+        <DialogContent className="flex flex-col items-center justify-center gap-4 text-center">
+          <Loader className="animate-spin h-8 w-8 text-primary" />
+          <p className="text-lg font-medium">Generando tu CV con ayuda de IA...</p>
+          <p className="text-muted-foreground text-sm">
+            Este proceso puede tardar unos segundos.
+          </p>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

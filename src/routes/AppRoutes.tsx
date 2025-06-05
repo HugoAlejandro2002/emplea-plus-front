@@ -4,8 +4,9 @@ import RegisterPage from "@/pages/RegisterPage";
 import WelcomeScreen from "@/pages/WelcomeScreen";
 import FormScreen from "@/pages/FormScreen";
 import SummaryScreen from "@/pages/SummaryScreen";
-import MenuPage from "@/pages/MenuPage";
+import AuthenticatedLayout from "@/layouts/AuthenticatedLayout";
 import AuthGuard from "@/guards/AuthGuard";
+import ResumeListPage from "@/pages/ResumeListPage";
 
 export default function AppRoutes() {
   return (
@@ -13,30 +14,20 @@ export default function AppRoutes() {
       <Route path="/" element={<WelcomeScreen />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
       <Route
-        path="/menu"
+        path="/"
         element={
           <AuthGuard>
-            <MenuPage />
+            <AuthenticatedLayout />
           </AuthGuard>
         }
-      />
-      <Route
-        path="/form"
-        element={
-          <AuthGuard>
-            <FormScreen />
-          </AuthGuard>
-        }
-      />
-      <Route
-        path="/summary"
-        element={
-          <AuthGuard>
-            <SummaryScreen />
-          </AuthGuard>
-        }
-      />
+      >
+        <Route path="resumes" element={<ResumeListPage />} />
+        <Route path="form" element={<FormScreen />} />
+        <Route path="summary" element={<SummaryScreen />} />
+        <Route path="reset-password" element={<div>Reset password aquí</div>} />
+      </Route>
     </Routes>
   );
 }
