@@ -63,7 +63,7 @@ const ResumeEditor = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <FullNameSection />
         <SummarySection />
         <ContactSection />

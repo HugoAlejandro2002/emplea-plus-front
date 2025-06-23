@@ -31,21 +31,23 @@ const SkillsSection = () => {
                 <p className="text-red-500 text-sm">{errors.skills[index]?.name?.message}</p>
               )}
 
-              <Select
-                value={values?.[index]?.level || ""}
-                onValueChange={(val) => setValue(`skills.${index}.level`, val)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Nivel (Ej: Intermedio)" />
-                </SelectTrigger>
-                <SelectContent>
-                  {SKILL_LEVELS.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="relative">
+                <Select
+                  value={values?.[index]?.level || ""}
+                  onValueChange={(val) => setValue(`skills.${index}.level`, val)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Nivel (Ej: Intermedio)" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-[200px] overflow-y-auto">
+                    {SKILL_LEVELS.map((level) => (
+                      <SelectItem key={level} value={level}>
+                        {level}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               {errors.skills?.[index]?.level && (
                 <p className="text-red-500 text-sm">{errors.skills[index]?.level?.message}</p>
               )}

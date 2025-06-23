@@ -31,21 +31,23 @@ const LanguagesSection = () => {
                 <p className="text-red-500 text-sm">{errors.languages[index]?.name?.message}</p>
               )}
 
-              <Select
-                value={values?.[index]?.level || ""}
-                onValueChange={(val) => setValue(`languages.${index}.level`, val)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Nivel (Ej: B2)" />
-                </SelectTrigger>
-                <SelectContent>
-                  {LANGUAGE_LEVELS.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="relative">
+                <Select
+                  value={values?.[index]?.level || ""}
+                  onValueChange={(val) => setValue(`languages.${index}.level`, val)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Nivel (Ej: B2)" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-[200px] overflow-y-auto">
+                    {LANGUAGE_LEVELS.map((level) => (
+                      <SelectItem key={level} value={level}>
+                        {level}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               {errors.languages?.[index]?.level && (
                 <p className="text-red-500 text-sm">{errors.languages[index]?.level?.message}</p>
               )}
