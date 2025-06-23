@@ -54,36 +54,42 @@ export interface ResumeRequest {
 }
 
 export interface ResumeResponse {
-    fullName: string;
-    contact: {
-        email: string;
-        phone: string;
-        linkedin: string;
-    };
-    summary: string;
-    education: {
-        institution: string;
-        degree: string;
-        startDate: string;
-        endDate: string;
-        description: string;
-    }[];
-    experience: {
-        company: string;
-        role: string;
-        startDate: string;
-        endDate: string | null;
-        responsibilities: string[];
-    }[];
-    skills: {
-        name: string;
-        level: string;
-    }[];
-    languages: {
-        name: string;
-        level: string;
-    }[];
+  fullName: string;
+  summary: string;
+  contact: {
+    email: string;
+    phone: string;
+    linkedin: string;
+  };
+  education: {
+    institution: string;
+    degree: string;
+    startYear: number;
+    endYear: number;
+    description: string;
+  }[];
+  experience: {
+    company: string;
+    position: string;
+    startDate: string;
+    endDate: string | null;
+    responsibilities: string[];
+  }[];
+  skills: {
+    name: string;
+    level: string;
+  }[];
+  languages: {
+    name: string;
+    proficiency: string;
+  }[];
+  certifications: {
+    name: string;
+    institution: string;
+    year: number;
+  }[];
 }
+
 
 export interface ResumeReference {
   id: string;
