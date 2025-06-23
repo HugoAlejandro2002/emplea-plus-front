@@ -45,6 +45,7 @@ const EducationSection = ({ onNext, onBack, defaultValues, isLast, isFirst }: Pr
                   </Button>
                 )}
               </div>
+
               <FormField
                 control={form.control}
                 name={`education.${index}.institution`}
@@ -52,12 +53,13 @@ const EducationSection = ({ onNext, onBack, defaultValues, isLast, isFirst }: Pr
                   <FormItem>
                     <FormLabel>Institución</FormLabel>
                     <FormControl>
-                      <Input placeholder="Universidad Privada Boliviana" {...field} />
+                      <Input placeholder="Universidad Privada Boliviana" maxLength={100} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name={`education.${index}.degree`}
@@ -65,12 +67,13 @@ const EducationSection = ({ onNext, onBack, defaultValues, isLast, isFirst }: Pr
                   <FormItem>
                     <FormLabel>Título o carrera</FormLabel>
                     <FormControl>
-                      <Input placeholder="Ingeniería de Sistemas" {...field} />
+                      <Input placeholder="Ingeniería de Sistemas" maxLength={100} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <div className="grid grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
@@ -79,7 +82,7 @@ const EducationSection = ({ onNext, onBack, defaultValues, isLast, isFirst }: Pr
                     <FormItem>
                       <FormLabel>Año de inicio</FormLabel>
                       <FormControl>
-                        <Input placeholder="2018" {...field} />
+                        <Input placeholder="2018" maxLength={4} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -92,13 +95,14 @@ const EducationSection = ({ onNext, onBack, defaultValues, isLast, isFirst }: Pr
                     <FormItem>
                       <FormLabel>Año de finalización</FormLabel>
                       <FormControl>
-                        <Input placeholder="2023" {...field} />
+                        <Input placeholder="2023" maxLength={4} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
+
               <FormField
                 control={form.control}
                 name={`education.${index}.notes`}
@@ -106,7 +110,7 @@ const EducationSection = ({ onNext, onBack, defaultValues, isLast, isFirst }: Pr
                   <FormItem>
                     <FormLabel>Notas u observaciones</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Graduado con honores" {...field} />
+                      <Textarea placeholder="Graduado con honores" maxLength={300} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -118,15 +122,16 @@ const EducationSection = ({ onNext, onBack, defaultValues, isLast, isFirst }: Pr
           <Button
             type="button"
             variant="outline"
-            onClick={() =>
+            onClick={() => fields.length < 4 &&
               append({
                 institution: "",
                 degree: "",
                 startYear: "",
                 endYear: "",
-                notes: ""
+                notes: "",
               })
             }
+            disabled={fields.length >= 4}
           >
             Añadir otra formación
           </Button>

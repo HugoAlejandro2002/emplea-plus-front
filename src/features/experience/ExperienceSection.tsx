@@ -99,6 +99,7 @@ const ExperienceSection = ({
           type="button"
           variant="outline"
           onClick={() =>
+            fields.length < 4 &&
             append({
               projectName: "",
               role: "",
@@ -108,6 +109,7 @@ const ExperienceSection = ({
               presentation: ""
             })
           }
+          disabled={fields.length >= 4}
         >
           Añadir otra experiencia
         </Button>

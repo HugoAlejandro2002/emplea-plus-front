@@ -11,7 +11,9 @@ export const languagesSchema = z.object({
         errorMap: () => ({ message: "Selecciona un nivel válido (A1 - C2)" }),
       }),
     })
-  ).min(1, "Debes agregar al menos un idioma"),
+  )
+  .min(1, "Debes agregar al menos un idioma")
+  .max(4, "Solo puedes agregar hasta 4 idiomas"),
 });
 
 export type { LanguagesFormValues };

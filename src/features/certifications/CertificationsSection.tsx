@@ -76,7 +76,7 @@ const CertificationsSection = ({
                                     <FormItem>
                                         <FormLabel>{label}</FormLabel>
                                         <FormControl>
-                                            <Input {...field} placeholder={placeholder} />
+                                            <Input {...field} placeholder={placeholder} maxLength={100}/>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

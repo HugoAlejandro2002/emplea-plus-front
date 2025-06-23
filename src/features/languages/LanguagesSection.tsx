@@ -100,7 +100,12 @@ import {
             </div>
           ))}
   
-          <Button type="button" variant="outline" onClick={() => append({ language: "", level: "A1" })}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => fields.length < 4 && append({ language: "", level: "A1" })}
+            disabled={fields.length >= 4}
+          >
             Añadir otro idioma
           </Button>
   

@@ -34,6 +34,7 @@ export const SummarySection = ({ defaultValues, onNext, onBack, isLast, isFirst 
           ¿Cómo te describirías como profesional o estudiante?
         </label>
         <Textarea
+          maxLength={600}
           id="summary"
           {...register("summary")}
           placeholder="Soy una persona proactiva, con habilidades en liderazgo y tecnología..."
