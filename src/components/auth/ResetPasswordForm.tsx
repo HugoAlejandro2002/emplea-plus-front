@@ -10,8 +10,13 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card
 import { Label } from "../ui/label";
 
 const resetPasswordSchema = z.object({
-    oldPassword: z.string().min(6, "Contraseña actual demasiado corta"),
-    newPassword: z.string().min(6, "La nueva contraseña debe tener al menos 6 caracteres"),
+  oldPassword: z.string({
+    required_error: "Campo obligatorio",
+  }).min(6, "Contraseña actual demasiado corta"),
+
+  newPassword: z.string({
+    required_error: "Campo obligatorio",
+  }).min(6, "La nueva contraseña debe tener al menos 6 caracteres"),
 });
 
 type ResetPasswordForm = z.infer<typeof resetPasswordSchema>;

@@ -92,6 +92,7 @@ const CertificationsSection = ({
                     onClick={() =>
                         append({ course: "", provider: "", year: "", certificate: "" })
                     }
+                    disabled={fields.length >= 8}
                 >
                     Añadir otra certificación
                 </Button>

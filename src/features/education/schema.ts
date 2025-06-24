@@ -2,21 +2,29 @@ import { z } from "zod";
 
 export const educationItemSchema = z.object({
   institution: z
-    .string()
+    .string({
+      required_error: "Institución requerida",
+    })
     .min(1, "Institución requerida")
     .max(100, "Máximo 100 caracteres"),
   degree: z
-    .string()
+    .string({
+      required_error: "Título o carrera requerido",
+    })
     .min(1, "Título o carrera requerido")
     .max(100, "Máximo 100 caracteres"),
   startYear: z
-    .string()
+    .string({
+      required_error: "Año de inicio requerido",
+    })
     .regex(/^\d{4}$/, "Debe tener 4 dígitos")
     .refine((val) => parseInt(val) >= 1900, {
       message: "Debe ser un año válido",
     }),
   endYear: z
-    .string()
+    .string({
+      required_error: "Año de finalización requerido",
+    })
     .regex(/^\d{4}$/, "Debe tener 4 dígitos")
     .refine((val) => parseInt(val) >= 1900, {
       message: "Debe ser un año válido",

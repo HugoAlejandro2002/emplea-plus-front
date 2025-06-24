@@ -14,10 +14,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+
 const loginSchema = z.object({
-  email: z.string().email("Email inválido"),
-  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
+  email: z.string({required_error: "Campo obligatorio",}).min(1, "Obligatorio").email("Email inválido"),
+  password: z.string({required_error: "Campo obligatorio",}).min(1, "Obligatorio"),
 });
+
 
 type LoginFormType = z.infer<typeof loginSchema>;
 
