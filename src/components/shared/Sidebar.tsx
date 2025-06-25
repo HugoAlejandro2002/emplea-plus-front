@@ -1,10 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { NotebookPen , FileText, LogOut, KeyRound } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Sidebar() {
   const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   const menuItems = [
     { to: "/form", label: "Llenar CV", icon: <NotebookPen className="h-5 w-5" /> },
@@ -38,7 +44,7 @@ export default function Sidebar() {
       <Button
         variant="ghost"
         className="w-full justify-start mt-6"
-        onClick={logout}
+        onClick={handleLogout}
       >
         <LogOut className="h-5 w-5 mr-2" /> Cerrar sesión
       </Button>
