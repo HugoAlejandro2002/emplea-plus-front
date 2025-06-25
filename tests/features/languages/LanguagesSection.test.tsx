@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent} from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import LanguagesSection from "@/features/languages/LanguagesSection";
 
@@ -6,17 +6,17 @@ describe("LanguagesSection", () => {
   const onNext = vi.fn();
   const onBack = vi.fn();
 
-  const fillForm = async () => {
-    fireEvent.change(screen.getByPlaceholderText("Ej. Inglés"), {
-      target: { value: "Inglés" },
-    });
+  // const fillForm = async () => {
+  //   fireEvent.change(screen.getByPlaceholderText("Ej. Inglés"), {
+  //     target: { value: "Inglés" },
+  //   });
 
-    const selectTrigger = screen.getByRole("combobox");
-    fireEvent.click(selectTrigger);
+  //   const selectTrigger = screen.getByRole("combobox");
+  //   fireEvent.click(selectTrigger);
 
-    const option = await screen.findByText("B2");
-    fireEvent.click(option);
-  };
+  //   const option = await screen.findByText("B2");
+  //   fireEvent.click(option);
+  // };
 
   it("renderiza correctamente el formulario de idiomas", () => {
     render(<LanguagesSection onNext={onNext} onBack={onBack} isFirst isLast />);
