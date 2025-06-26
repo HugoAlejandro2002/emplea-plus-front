@@ -13,6 +13,11 @@ export const formatFormDataForBackend = (formData: Record<string, any>) => {
   };
 };
 
+const formatToMonthYear = (dateStr: string): string => {
+  const [year, month] = dateStr.split("-");
+  return month && year ? `${month}/${year}` : "";
+};
+
 export const transformToResumeResponse = (formData: ResumeFormType): ResumeResponse => {
   return {
     fullName: formData.fullName,
@@ -25,15 +30,15 @@ export const transformToResumeResponse = (formData: ResumeFormType): ResumeRespo
     education: formData.education.map(e => ({
       institution: e.institution,
       degree: e.degree,
-      startYear: parseInt(e.startDate.split("-")[0]) || new Date().getFullYear(),
-      endYear: parseInt(e.endDate.split("-")[0]) || new Date().getFullYear(),
+      startYear: formatToMonthYear(e.startDate),
+      endYear: formatToMonthYear(e.endDate),
       description: e.description ?? "",
     })),
     experience: formData.experience.map(e => ({
       company: e.company,
       position: e.position,
-      startDate: e.startDate,
-      endDate: e.endDate ?? null,
+      startDate: formatToMonthYear(e.startDate),
+      endDate: e.endDate ? formatToMonthYear(e.endDate) : null,
       responsibilities: e.responsibilities,
     })),
     skills: formData.skills.map(s => ({

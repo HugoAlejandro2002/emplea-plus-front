@@ -64,8 +64,8 @@ export interface ResumeResponse {
   education: {
     institution: string;
     degree: string;
-    startYear: number;
-    endYear: number;
+    startYear: string;
+    endYear: string;
     description: string;
   }[];
   experience: {
